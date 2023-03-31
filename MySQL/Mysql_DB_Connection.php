@@ -9,5 +9,13 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
 }
+    $county = $_GET['county'];
 
+    $sql = "SELECT Year, debtType, Amount FROM fordonSkuld";
+    if ($county == "alla") {
+    
+    } elseif ($county != "") {
+        $sql .= " WHERE County = '".$county."'";
+    }
+    $result = $conn->query($sql);
 ?>
