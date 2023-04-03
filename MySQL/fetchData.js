@@ -110,4 +110,22 @@ function generateChart(data) {
             }
         }
     });
+
+    for (var i = 0; i < years.length; i++) {
+        var datasets = {
+            label: years[i],
+            backgroundColor: [],
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 0.2,
+            hoverBackgroundColor: [],
+            hoverBorderColor: 'rgba(255, 99, 132, 1)',
+            data: debts[i]
+        };
+        for (var j = 0; j < debtTypes.length; j++) {
+            // Use the corresponding color for each debt type
+            datasets.backgroundColor.push(colors[j]);
+            datasets.hoverBackgroundColor.push(colors[j].replace('0.2', '0.4'));
+        }
+        myChart.data.datasets.push(datasets);
+    }
 }
