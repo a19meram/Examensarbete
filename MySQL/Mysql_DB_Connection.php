@@ -1,29 +1,30 @@
 <?php
-    $host = "localhost";
-    $username = "root";
-    $password = "Te16infmer!";
-    $dbname = "mysql_ex";
+$host = "localhost";
+$username = "root";
+$password = "Te16infmer!";
+$dbname = "mysql_ex";
 
-    $conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname);
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
-    $county = $_GET['county'];
+$county = $_GET['county'];
 
-    $sql = "SELECT Year, debtType, Amount FROM fordonSkuld";
-    if ($county == "alla") {
-    
-    } elseif ($county != "") {
-        $sql .= " WHERE County = '".$county."'";
-    }
-    $result = $conn->query($sql);
+$sql = "SELECT Year, debtType, Amount FROM fordonSkuld";
+if ($county == "alla") {
 
-    $data = array();
-    while($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
-    echo json_encode($data);
+} elseif ($county != "") {
+    $sql .= " WHERE County = '" . $county . "'";
+}
+$result = $conn->query($sql);
 
-    $conn->close();
+$data = array();
+while ($row = $result->fetch_assoc()) {
+    $data[] = $row;
+}
+echo json_encode($data);
+
+$conn->close();
+
 ?>

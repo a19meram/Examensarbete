@@ -14,7 +14,7 @@ function getData() {
             success: function (data) {
                 $("#lan-rubrik").html("Data för: " + county);
                 $("#myDiv").css("display", "block");
-
+                generateChart(data);
                 var end = Date.now();
                 var elapsedTime = end - start;
                 totalElapsedTime += elapsedTime;
@@ -56,7 +56,7 @@ function getData() {
 
 function generateChart(data) {
     if (myChart) {
-        myChart.destroy(); 
+        myChart.destroy();
     }
     var years = [];
     var debtTypes = [];
