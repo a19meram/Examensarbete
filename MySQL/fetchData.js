@@ -53,7 +53,7 @@ function getData() {
     }
 }
 
-function generateChart() {
+function generateChart(data) {
 
     var years = [];
     var debtTypes = [];
