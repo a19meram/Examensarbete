@@ -18,17 +18,17 @@ function getData() {
                 var elapsedTime = end - start;
                 totalElapsedTime += elapsedTime;
                 iterationCount++;
-                timeData += elapsedTime + "\n"; 
+                timeData += elapsedTime + "\n";
 
 
                 console.log("Iteration " + iterationCount + ": " + elapsedTime + " ms");
 
 
                 if (iterationCount < iterations) {
-                    sendRequest(); 
+                    sendRequest();
                 } else {
                     console.log("All Total iterations: " + iterationCount);
-                    download("timeDataMySQL.txt", timeData); 
+                    download("timeDataMySQL.txt", timeData);
                 }
             }
 
@@ -50,5 +50,37 @@ function getData() {
 
 
         document.body.removeChild(element);
+    }
+}
+
+function generateChart() {
+
+    var years = [];
+    var debtTypes = [];
+    var debts = [];
+
+    for (var i = 0; i < data.length; i++) {
+        if (!years.includes(data[i].Year)) {
+            years.push(data[i].Year);
+        }
+        if (!debtTypes.includes(data[i].debtType)) {
+            debtTypes.push(data[i].debtType);
+        }
+    }
+
+    // Define an array of colors for the debt types
+    var colors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
+    for (var i = 0; i < years.length; i++) {
+        var yearData = [];
+        for (var j = 0; j < debtTypes.length; j++) {
+            var sum = 0;
+            for (var k = 0; k < data.length; k++) {
+                if (data[k].Year == years[i] && data[k].debtType == debtTypes[j]) {
+                    sum += parseInt(data[k].Amount);
+                }
+            }
+            yearData.push(sum);
+        }
+        debts.push(yearData);
     }
 }
