@@ -1,4 +1,4 @@
-var myChart;
+var myChart, myChart2;
 function getData() {
     var county = $("#county").val();
     var iterations = 0;
@@ -58,6 +58,7 @@ function togellfun(data) {
         $('#lan-rubrik2').show();
     }
     generateChart(data);
+    generateChart2(data);
 
 }
 
@@ -138,4 +139,76 @@ function generateChart(data) {
         myChart.data.datasets.push(datasets);
     }
     myChart.update();
+}
+
+function generateChart2(data) {
+  if (myChart2) {
+    myChart2.destroy(); // Förstör föregående diagram om det finns
+  }
+
+  var years = [];
+  var debtTypes = [];
+  var debts = [];
+
+  for (var i = 0; i < data.length; i++) {
+    if (!years.includes(data[i].Year)) {
+      years.push(data[i].Year);
+    }
+    if (!debtTypes.includes(data[i].debtType)) {
+      debtTypes.push(data[i].debtType);
+    }
+  }
+
+  // Define an array of colors for the debt types
+  var colors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
+  for (var i = 0; i < years.length; i++) {
+    var yearData = [];
+    for (var j = 0; j < debtTypes.length; j++) {
+      var sum = 0;
+      for (var k = 0; k < data.length; k++) {
+        if (data[k].Year == years[i] && data[k].debtType == debtTypes[j]) {
+          sum += parseInt(data[k].Amount);
+        }
+      }
+      yearData.push(sum);
+    }
+    debts.push(yearData);
+  }
+
+  var ctx2 = document.getElementById("myChart2");
+  myChart2 = new Chart(ctx2, {
+    type: 'doughnut', // change chart type to doughnut
+    data: {
+      labels: debtTypes,
+      datasets: []
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Skulder'
+      },
+      legend: {
+        display: true
+      }
+    }
+  });
+
+  for (var i = 0; i < years.length; i++) {
+    var datasets = {
+      label: years[i],
+      backgroundColor: [],
+      hoverBackgroundColor: [],
+      data: debts[i]
+    };
+    for (var j = 0; j < debtTypes.length; j++) {
+      // Use the corresponding color for each debt type
+      datasets.backgroundColor.push(colors[j]);
+      datasets.hoverBackgroundColor.push(colors[j].replace('0.2', '0.4'));
+    }
+    myChart2.data.datasets.push(datasets);
+  }
+
+
+
+  myChart2.update();
 }
