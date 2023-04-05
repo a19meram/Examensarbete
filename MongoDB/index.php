@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fordons relaterade skulder dataset</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <form>
@@ -34,9 +35,14 @@
             <option value="ÖREBRO" name="county">Örebro</option>
             <option value="ÖSTERGÖTLAND" name="county">Östergötland</option>
             <option value="ÖVRIGT" name="county">Övrigt</option>
-            
+
         </select>
             <button type="button" onclick="getData()">Hämta data</button>
     </form>
+
+    <div id="myDiv">
+        <h2 id="lan-rubrik"></h2>
+        <canvas id="myChart"></canvas>
+    </div>
 </body>
 </html>
