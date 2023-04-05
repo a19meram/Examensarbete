@@ -45,8 +45,8 @@
         <label for="chartType">Diagramtyp:</label>
         <select id="chartType" name="chartType">
             <option disabled selected>Välj typ</option>
-            <option value="stapel">Stapel</option>
-            <option value="linje">Linje</option>
+            <option value="stapel">BarChart</option>
+            <option value="piechart">PieChart</option>
         </select>
         <button type="button" onclick="getData()">Hämta data</button>
     </form>

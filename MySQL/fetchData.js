@@ -52,7 +52,7 @@ function togellfun(data) {
         $('#myDiv2').hide();
         $('#myDiv').show();
         $('#lan-rubrik').show();
-    } else if (chartType == 'linje') {
+    } else if (chartType == 'piechart') {
         $('#myDiv').hide();
         $('#myDiv2').show();
         $('#lan-rubrik2').show();
