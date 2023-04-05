@@ -13,17 +13,15 @@ function getData() {
             dataType: "json",
             success: function (data) {
                 $("#lan-rubrik").html("Data för: " + county);
-                $("#myDiv").css("display", "block");
-                generateChart(data);
+                $("#lan-rubrik2").html("Data för: " + county);
+                togellfun(data);
                 var end = Date.now();
                 var elapsedTime = end - start;
                 totalElapsedTime += elapsedTime;
                 iterationCount++;
                 timeData += elapsedTime + "\n";
 
-
                 console.log("Iteration " + iterationCount + ": " + elapsedTime + " ms");
-
 
                 if (iterationCount < iterations) {
                     sendRequest();
@@ -41,17 +39,26 @@ function getData() {
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
         element.setAttribute('download', filename);
-
-
         element.style.display = 'none';
         document.body.appendChild(element);
-
-
         element.click();
-
-
         document.body.removeChild(element);
     }
+}
+
+function togellfun(data) {
+    var chartType = $('select[name=chartType]').val();
+    if (chartType == 'stapel') {
+        $('#myDiv2').hide();
+        $('#myDiv').show();
+        $('#lan-rubrik').show();
+    } else if (chartType == 'linje') {
+        $('#myDiv').hide();
+        $('#myDiv2').show();
+        $('#lan-rubrik2').show();
+    }
+    generateChart(data);
+
 }
 
 function generateChart(data) {
