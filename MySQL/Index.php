@@ -41,7 +41,12 @@
             <option value="Örebro" name="county">Örebro</option>
             <option value="Östergötland" name="county">Östergötland</option>
             <option value="Övrigt" name="county">Övrigt</option>
-
+        </select>
+        <label for="chartType">Diagramtyp:</label>
+        <select id="chartType" name="chartType">
+            <option disabled selected>Välj typ</option>
+            <option value="stapel">Stapel</option>
+            <option value="linje">Linje</option>
         </select>
         <button type="button" onclick="getData()">Hämta data</button>
     </form>
@@ -52,7 +57,10 @@
         <canvas id="myChart"></canvas>
     </div>
 
-
+    <div id="myDiv2">
+        <h2 id="lan-rubrik2"></h2>
+        <canvas id="myChart2"></canvas>
+    </div>
 
 </body>
 
