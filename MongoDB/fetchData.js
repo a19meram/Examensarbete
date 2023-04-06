@@ -67,6 +67,9 @@ function togellfun(data) {
 }
 
 function generateChart(data) {
+    var years = [];
+    var debtTypes = [];
+    var debts = [];
 
 }
 function generateChart2(data) {
