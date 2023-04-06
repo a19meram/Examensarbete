@@ -36,7 +36,12 @@
             <option value="ÖREBRO" name="county">Örebro</option>
             <option value="ÖSTERGÖTLAND" name="county">Östergötland</option>
             <option value="ÖVRIGT" name="county">Övrigt</option>
-
+        </select>
+        <label for="chartType">Diagramtyp:</label>
+        <select id="chartType" name="chartType">
+            <option disabled selected>Välj typ</option>
+            <option value="stapel">BarChart</option>
+            <option value="piechart">PieChart</option>
         </select>
             <button type="button" onclick="getData()">Hämta data</button>
     </form>
@@ -44,6 +49,10 @@
     <div id="myDiv">
         <h2 id="lan-rubrik"></h2>
         <canvas id="myChart"></canvas>
+    </div>
+    <div id="myDiv2">
+        <h2 id="lan-rubrik2"></h2>
+        <canvas id="myChart2"></canvas>
     </div>
 </body>
 </html>
