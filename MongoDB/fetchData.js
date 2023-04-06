@@ -67,6 +67,9 @@ function togellfun(data) {
 }
 
 function generateChart(data) {
+    if (myChart) {
+        myChart.destroy();
+    }
     var years = [];
     var debtTypes = [];
     var debts = [];
@@ -138,6 +141,7 @@ function generateChart(data) {
         }
         myChart.data.datasets.push(datasets);
     }
+    myChart.update();
 }
 function generateChart2(data) {
 
