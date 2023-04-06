@@ -7,6 +7,7 @@ function getData() {
     var timeData = '';
 
     function sendRequest() {
+        var start = Date.now();
         $.ajax({
             url: 'Mongo_DB_Connection.php',
             type: 'GET',
@@ -16,6 +17,20 @@ function getData() {
                 $("#lan-rubrik").html("Data för: " + county);
                 $("#lan-rubrik2").html("Data för: " + county);
                 togellfun(data);
+
+                var end = Date.now();
+                var elapsedTime = end - start;
+                totalElapsedTime += elapsedTime;
+                iterationCount++;
+                timeData += elapsedTime + "\n";
+                console.log("Iteration " + iterationCount + ": " + elapsedTime + " ms");
+
+                if (iterationCount < iterations) {
+                    sendRequest(); 
+                } else {
+                    console.log("All Total iterations: " + iterationCount);
+                    
+                }
             }
         });
     }
