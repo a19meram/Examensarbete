@@ -95,6 +95,32 @@ function generateChart(data) {
         }
         debts.push(yearData);
     }
+    
+    var ctx = document.getElementById("myChart");
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: debtTypes,
+            datasets: []
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Skulder'
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white'
+                    }
+                }
+            },
+            legend: {
+                display: true
+            }
+        }
+    });
 
 }
 function generateChart2(data) {
