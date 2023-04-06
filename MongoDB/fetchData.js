@@ -51,6 +51,18 @@ function getData() {
 }
 
 function togellfun(data) {
+    var chartType = $('select[name=chartType]').val();
+    if (chartType == 'stapel') {
+        $('#myDiv2').hide();
+        $('#myDiv').show();
+        $('#lan-rubrik').show();
+    } else if (chartType == 'piechart') {
+        $('#myDiv').hide();
+        $('#myDiv2').show();
+        $('#lan-rubrik2').show();
+    }
+    generateChart(data);
+    generateChart2(data);
 
 }
 
