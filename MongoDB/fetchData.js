@@ -26,15 +26,28 @@ function getData() {
                 console.log("Iteration " + iterationCount + ": " + elapsedTime + " ms");
 
                 if (iterationCount < iterations) {
-                    sendRequest(); 
+                    sendRequest();
                 } else {
                     console.log("All Total iterations: " + iterationCount);
-                    
+                    download("timeDataMongoDB.txt", timeData);
                 }
             }
         });
     }
     sendRequest();
+
+    function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
 }
 
 function togellfun(data) {
