@@ -1,9 +1,10 @@
 var myChart, myChart2;
 function getData() {
     var county = $("#county").val();
-    var iterations = 0;
+    var iterations = 5000;
     var totalElapsedTime = 0;
-    var iterationCount = 0;
+  var iterationCount = 0;
+  var warmUpIteration = 10; 
     var timeData = '';
 
     function sendRequest() {
@@ -14,21 +15,22 @@ function getData() {
             dataType: 'json',
             data: { county: county },
             success: function (data) {
-                $("#lan-rubrik").html("Data för: " + county);
+             $("#lan-rubrik").html("Data för: " + county);
                 $("#lan-rubrik2").html("Data för: " + county);
                 togellfun(data);
-
                 var end = Date.now();
                 var elapsedTime = end - start;
-                totalElapsedTime += elapsedTime;
-                iterationCount++;
-                timeData += elapsedTime + "\n";
-                console.log("Iteration " + iterationCount + ": " + elapsedTime + " ms");
+                if (iterationCount >= warmUpIteration) { 
+                    totalElapsedTime += elapsedTime;
+                    timeData += elapsedTime + "\n";
+                    console.log("Iteration " + (iterationCount - warmUpIteration + 1) + ": " + elapsedTime + " ms"); 
+                }
+                iterationCount++; 
 
-                if (iterationCount < iterations) {
+                if (iterationCount < iterations + warmUpIteration) { 
                     sendRequest();
                 } else {
-                    console.log("All Total iterations: " + iterationCount);
+                    console.log("All Total iterations: " + (iterationCount - warmUpIteration)); 
                     download("timeDataMongoDB.txt", timeData);
                 }
             }

@@ -1,9 +1,10 @@
 var myChart, myChart2;
 function getData() {
     var county = $("#county").val();
-    var iterations = 0;
+    var iterations = 5000;
     var totalElapsedTime = 0;
     var iterationCount = 0;
+    var warmUpIteration = 10; 
     var timeData = '';
 
     function sendRequest() {
@@ -17,20 +18,20 @@ function getData() {
                 togellfun(data);
                 var end = Date.now();
                 var elapsedTime = end - start;
-                totalElapsedTime += elapsedTime;
-                iterationCount++;
-                timeData += elapsedTime + "\n";
+                if (iterationCount >= warmUpIteration) { 
+                    totalElapsedTime += elapsedTime;
+                    timeData += elapsedTime + "\n";
+                    console.log("Iteration " + (iterationCount - warmUpIteration + 1) + ": " + elapsedTime + " ms"); 
+                }
+                iterationCount++; 
 
-                console.log("Iteration " + iterationCount + ": " + elapsedTime + " ms");
-
-                if (iterationCount < iterations) {
+                if (iterationCount < iterations + warmUpIteration) { 
                     sendRequest();
                 } else {
-                    console.log("All Total iterations: " + iterationCount);
+                    console.log("All Total iterations: " + (iterationCount - warmUpIteration)); 
                     download("timeDataMySQL.txt", timeData);
                 }
             }
-
         });
     }
     sendRequest();
@@ -45,6 +46,7 @@ function getData() {
         document.body.removeChild(element);
     }
 }
+
 
 function togellfun(data) {
     var chartType = $('select[name=chartType]').val();
